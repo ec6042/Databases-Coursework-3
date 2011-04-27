@@ -1,0 +1,15 @@
+graph ERDiagram {
+
+  // Top Level objects
+  node [shape=box]
+  Player
+  Account
+  Character
+
+  // Relationships
+  node [shape=diamond]
+  node [label="has"]
+  Player -- player_has_account -- Account
+  Account -- account_has_character -- Character
+
+}
