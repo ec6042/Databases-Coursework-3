@@ -1,15 +1,389 @@
-graph ERDiagram {
+digraph ERDiagram  {
+  splines = true
+  
 
   // Top Level objects
   node [shape=box]
-  Player
-  Account
-  Character
+    Player
+    Account
+    Character
+    Position
+    Attributes
+    Appearance
+    Inventory
+    Bag
+    Item
+    Spell
+    Buff
+    Social
+    Creature
+    Quest
+    Loot
 
-  // Relationships
-  node [shape=diamond]
-  node [label="has"]
-  Player -- player_has_account -- Account
-  Account -- account_has_character -- Character
+  // Player
+  subgraph Player {
+    node [shape=ellipse]
+
+      username        -> Player [ arrowhead="none" ]
+      email_address   -> Player [ arrowhead="none" ]
+      password        -> Player [ arrowhead="none" ]
+      billing_address -> Player [ arrowhead="none" ]
+
+    node [shape=diamond, label="owns"]
+    
+      Player              -> Player_owns_Account [ arrowhead="none" ]
+      Player_owns_Account -> Account             [ arrowhead="crow" ]
+  }
+
+  // Account
+  subgraph Account {
+    node [shape=ellipse]
+      
+      owner           -> Account [ arrowhead="none"]
+      creation_date   -> Account [ arrowhead="none"]
+      paid_until_date -> Account [ arrowhead="none"]
+      security_level  -> Account [ arrowhead="none"]
+    
+    node [shape=diamond, label="owns"]
+      Account                -> Account_owns_character [ arrowhead="none" ]
+      Account_owns_character -> Character              [ arrowhead="crow" ]
+  }
+
+  // Character
+  subgraph Character {
+    node [shape=ellipse]
+
+      name               -> Character [ arrowhead="none" ]
+      race               -> Character [ arrowhead="none" ]
+      class              -> Character [ arrowhead="none" ]
+      gender             -> Character [ arrowhead="none" ]
+      level              -> Character [ arrowhead="none" ]
+      total_playing_time -> Character [ arrowhead="none" ]
+      is_online          -> Character [ arrowhead="none" ]
+      last_login         -> Character [ arrowhead="none" ]
+      last_logout        -> Character [ arrowhead="none" ]
+
+      node [shape=diamond, label="has"]
+        Character -> Character_has_Position [arrowhead="none"]
+        Character_has_Position -> Position [arrowhead="none"]
+
+      node [shape=diamond, label="has base"]
+        Character -> Character_has_Attributes [arrowhead="none"]
+        Character_has_Attributes ->  Attributes [arrowhead="none"]
+ 
+      node [shape=diamond, label="has presently"]
+        Character -> Character_has_presently_Attributes [arrowhead="none"]
+        Character_has_presently_Attributes ->  Attributes [arrowhead="none"]
+
+      node [shape=diamond, label="has base"]
+        Character -> Character_has_base_Appearance [arrowhead="none"]
+        Character_has_base_Appearance ->  Appearance [arrowhead="none"]
+
+      node [shape=diamond, label="has"]
+        Character -> Character_has_currently_Appearance [arrowhead="none"]
+        Character_has_currently_Appearance ->  Appearance [arrowhead="none"]
+
+      node [shape=diamond, label="has"]
+        Character -> Character_holds_Inventory  [arrowhead="none"]
+        Character_holds_Inventory  ->  Inventory  [arrowhead="none"]
+
+      node [shape=diamond, label="can cast"]
+        Character -> Character_can_cast_Spell [ arrowhead="none" ]
+        Character_can_cast_Spell -> Spell [ arrowhead="crow" ]
+
+      node [shape=diamond, label="is buffed by"]
+        Character -> Character_is_buffed_by_Buff   [ arrowhead="none" ]
+        Character_is_buffed_by_Buff   -> Buff   [ arrowhead="none" ]
+
+      node [shape=diamond, label="knows"]
+        Character -> Character_knows_Social [ arrowhead="none" ]
+        Character_knows_Social -> Social [ arrowhead="none" ]
+
+
+  }
+
+  // Position
+  subgraph Position {
+    node [shape=ellipse]
+
+      coordinate -> Position [ arrowhead="none"]
+      direction  -> Position [ arrowhead="none"]
+      mapzone    -> Position [ arrowhead="none"]
+  }
+
+  // Attributes
+  subgraph Attributes {
+    node [shape=ellipse]
+
+      health    -> Attributes [ arrowhead="none"]
+      mana      -> Attributes [ arrowhead="none"]
+      energy    -> Attributes [ arrowhead="none"]
+      armour    -> Attributes [ arrowhead="none"]
+      strength  -> Attributes [ arrowhead="none"]
+      agility   -> Attributes [ arrowhead="none"]
+      stamina   -> Attributes [ arrowhead="none"]
+      intellect -> Attributes [ arrowhead="none"]
+      spirit    -> Attributes [ arrowhead="none"]
+      xp        -> Attributes [ arrowhead="none"]
+  }
+
+  // Appearance
+  subgraph Appearance {
+    node [shape=ellipse]
+
+      scale      -> Appearance [ arrowhead="none"]
+      model_id   -> Appearance [ arrowhead="none"]
+      animation  -> Appearance [ arrowhead="none"]
+      hair_color -> Appearance [ arrowhead="none"]
+      skin_color -> Appearance [ arrowhead="none"]
+      hair_style -> Appearance [ arrowhead="none"]
+      face_style -> Appearance [ arrowhead="none"]
+  }
+
+  // Inventory
+  subgraph Inventory {
+    node [shape=ellipse]
+
+      money -> Inventory  [ arrowhead="none"]
+
+    node [shape=diamond, label="equips on head"]
+      Inventory -> Inventory_equips_on_head_Item [ arrowhead="none" ]
+      Inventory_equips_on_head_Item -> Item [ arrowhead="none" ]
+
+    node [shape=diamond, label="equips on shoulders"]
+      Inventory -> Inventory_equips_on_shoulders_Item [ arrowhead="none" ]
+      Inventory_equips_on_shoulders_Item -> Item [ arrowhead="none" ]
+
+    node [shape=diamond, label="equips on body"] 
+      Inventory ->  Inventory_equips_on_body_Item [ arrowhead="none" ]
+      Inventory_equips_on_body_Item -> Item [ arrowhead="none" ] 
+
+    node [shape=diamond, label="equips on hands"]
+      Inventory -> Inventory_equips_on_hands_Item [ arrowhead="none" ]
+      Inventory_equips_on_hands_Item -> Item [ arrowhead="none" ]
+
+    node [shape=diamond, label="equips on legs"]
+      Inventory -> Inventory_equips_on_legs_Item [ arrowhead="none" ]
+      Inventory_equips_on_legs_Item -> Item [ arrowhead="none" ]
+
+    node [shape=diamond, label="equips on feet"]
+      Inventory -> Inventory_equips_on_feet_Item [ arrowhead="none" ]
+      Inventory_equips_on_feet_Item -> Item [ arrowhead="none" ]
+
+    node [shape=diamond, label="equips on neck"]
+      Inventory -> Inventory_equips_on_neck_Item [ arrowhead="none" ]
+      Inventory_equips_on_neck_Item -> Item [ arrowhead="none" ]
+
+    node [shape=diamond, label="equips as main weapon"]
+      Inventory -> Inventory_equips_as_main_weapon_Item [ arrowhead="none" ]
+      Inventory_equips_as_main_weapon_Item -> Item [ arrowhead="none" ]
+
+    node [shape=diamond, label="equips as off hand weapon"]
+      Inventory -> Inventory_equips_as_off_hand_weapon_Item [ arrowhead="none" ]
+      Inventory_equips_as_off_hand_weapon_Item -> Item [ arrowhead="none" ]
+
+    node [shape=diamond, label="wears as ring"]
+      Inventory -> Inventory_wears_as_ring_Item [ arrowhead="none" ]
+      Inventory_wears_as_ring_Item -> Item [ arrowhead="crow", taillabel="2" ]
+
+    node [shape=diamond, label="holds onto"]
+      Inventory -> Inventory_holds_onto_Bag [ arrowhead="none" ]
+      Inventory_holds_onto_Bag -> Bag [ arrowhead="crow", taillabel="5" ]
+
+  }
+
+  // Bag
+  subgraph Bag {
+    node [shape=ellipse]
+
+      capacity -> Bag [ arrowhead="none"]
+
+    node [shape=diamond, label="holds"]
+
+      Bag           -> Bag_hold_Item [ arrowhead="none"]
+      Bag_hold_Item -> Item          [ arrowhead="crow"]
+
+  }
+
+  // Spell
+  subgraph Spell {
+
+    node [shape=ellipse]
+
+      spell_name           -> Spell  [ arrowhead="none"]
+      cost                 -> Spell  [ arrowhead="none"]
+      spell_minimum_damage -> Spell  [ arrowhead="none"]
+      spell_maximum_damage -> Spell  [ arrowhead="none"]
+      target_type          -> Spell  [ arrowhead="none"]
+      range                -> Spell  [ arrowhead="none"]
+      radius               -> Spell  [ arrowhead="none"]
+      status               -> Spell  [ arrowhead="none"]
+      cool_down            -> Spell  [ arrowhead="none"]
+
+    node [shape=diamond, label="has effect"]
+      Spell -> Spell_has_effect_Buff [ arrowhead="none" ]
+      Spell_has_effect_Buff -> Buff [ arrowhead="none" ]
+  }
+
+  // Buff
+  subgraph Buff {
+
+    node [shape=ellipse]
+      time_left -> Buff  [ arrowhead="none"]
+
+    node [shape=diamond, label="modifies"]
+      Buff -> Buff_modifies_Attributes [ arrowhead="none" ]
+      Buff_modifies_Attributes -> Attributes [ arrowhead="none" ]
+
+
+  }
+
+  // Social
+  subgraph Social {
+
+    node [shape=diamond, label="is friends with"]
+      Social -> Social_is_friends_with_Character [ arrowhead="none" ]
+      Social_is_friends_with_Character -> Character [ arrowhead="crow" ]
+
+    node [shape=diamond, label="ignores"]
+      Social -> Social_ignores_Character [ arrowhead="none" ]
+      Social_ignores_Character -> Character [ arrowhead="crow" ]
+
+    node [shape=diamond, label="is hanging out with"]
+      Social -> Social_is_hanging_out_with_Character [ arrowhead="none" ]
+      Social_is_hanging_out_with_Character -> Character [ arrowhead="crow" ]
+  }
+
+  // Item
+  subgraph Item {
+
+    node [shape=ellipse]
+
+      item_name      -> Item [ arrowhead="none"]
+      type           -> Item [ arrowhead="none"]
+      icon_id        -> Item [ arrowhead="none"]
+      model_id       -> Item [ arrowhead="none"]
+      quality        -> Item [ arrowhead="none"]
+      sell_price     -> Item [ arrowhead="none"]
+      inventory_slot -> Item [ arrowhead="none"]
+      used_by        -> Item [ arrowhead="none"]
+      required_level -> Item [ arrowhead="none"]
+      max_stack      -> Item [ arrowhead="none"]
+      minimum_damage -> Item [ arrowhead="none"]
+      max_damage     -> Item [ arrowhead="none"]
+      delay          -> Item [ arrowhead="none"]
+      bind_type      -> Item [ arrowhead="none"]
+      soul_bound     -> Item [ arrowhead="none"]
+
+    node [shape=diamond, label="casts"]
+      Item -> Item_casts_Buff [ arrowhead="none" ]
+      Item_casts_Buff -> Buff [ arrowhead="none" ]
+
+    node [shape=diamond, label="effect"]
+      Item -> Item_effect_Attributes [ arrowhead="none" ]
+      Item_effect_Attributes -> Attributes [ arrowhead="none" ]
+  }
+
+  // Creature
+  subgraph Creature {
+    node [shape=ellipse]
+
+      Creature_name        -> Creature [ arrowhead="none"]
+      Creature_race        -> Creature [ arrowhead="none"]
+      Creature_class       -> Creature [ arrowhead="none"]
+      Creature_gender      -> Creature [ arrowhead="none"]
+      Creature_level       -> Creature [ arrowhead="none"]
+      Creature_type        -> Creature [ arrowhead="none"]
+      rank                 -> Creature [ arrowhead="none"]
+      speed                -> Creature [ arrowhead="none"]
+      doing_minimum_damage -> Creature [ arrowhead="none"]
+      doing_maximum_damage -> Creature [ arrowhead="none"]
+      ai                   -> Creature [ arrowhead="none"]
+      behaviours           -> Creature [ arrowhead="none"]
+
+      node [shape=diamond, label="has"]
+        Creature -> Creature_has_Position [arrowhead="none"]
+        Creature_has_Position -> Position [arrowhead="none"]
+
+      node [shape=diamond, label="has base"]
+        Creature -> Creature_has_Attributes [arrowhead="none"]
+        Creature_has_Attributes ->  Attributes [arrowhead="none"]
+ 
+      node [shape=diamond, label="has presently"]
+        Creature -> Creature_has_presently_Attributes [arrowhead="none"]
+        Creature_has_presently_Attributes ->  Attributes [arrowhead="none"]
+
+      node [shape=diamond, label="has base"]
+        Creature -> Creature_has_base_Appearance [arrowhead="none"]
+        Creature_has_base_Appearance ->  Appearance [arrowhead="none"]
+
+      node [shape=diamond, label="has"]
+        Creature -> Creature_has_currently_Appearance [arrowhead="none"]
+        Creature_has_currently_Appearance ->  Appearance [arrowhead="none"]
+
+      node [shape=diamond, label="can cast"]
+        Creature -> Creature_can_cast_Spell [ arrowhead="none" ]
+        Creature_can_cast_Spell -> Spell [ arrowhead="crow" ]
+
+      node [shape=diamond, label="is buffed by"]
+        Creature -> Creature_is_buffed_by_Buff   [ arrowhead="none" ]
+        Creature_is_buffed_by_Buff   -> Buff   [ arrowhead="none" ]
+
+      node [shape=diamond, label="drops"]
+        Creature -> Creature_drops_Loot [ arrowhead="none" ]
+        Creature_drops_Loot -> Loot [ arrowhead="crow" ]
+  }
+
+  // Loot
+  subgraph Loot {
+    node [shape=ellipse]
+      probability -> Loot  [ arrowhead="none"]
+
+    node [shape=diamond, label="is"]
+      Loot -> Loot_is_Item [ arrowhead="none" ]
+      Loot_is_Item -> Item [ arrowhead="none" ]
+  }
+
+  // Quest
+  subgraph Quest {
+
+    node [shape=ellipse]
+      quest_type
+      class_required
+      minimum_level
+      quest_level
+      suggested_players
+      time_limit
+      gold_gained
+      xp_gained
+      title
+      explanation
+      acceptance_speach
+      congratulations_speach
+
+
+    node [shape=diamond, label="gives"]
+      Quest -> Quest_gives_Item [ arrowhead="none" ]
+      Quest_gives_Item -> Item [arrowhead="crow" ]
+
+    node [shape=diamond, label="rewards"]
+      Quest -> Quest_rewards_Item [ arrowhead="none" ]
+      Quest_rewards_Item -> Item [arrowhead="crow" ]
+
+    node [shape=diamond, label="requires visit to"]
+      Quest -> Quest_requires_visit_to_Position [ arrowhead="none" ]
+      Quest_requires_visit_to_Position -> Position [arrowhead="none" ]
+
+    node [shape=diamond, label="requires death of"]
+      Quest -> Quest_requires_death_of_Creature [ arrowhead="none" ]
+      Quest_requires_death_of_Creature -> Creature [arrowhead="none" ]
+
+    node [shape=diamond, label="requires completion of"]
+      Quest -> Quest_requires_completion_of_Quest [ arrowhead="none" ]
+      Quest_requires_completion_of_Quest -> Quest [arrowhead="none" ]
+
+  }
+
 
 }
+
