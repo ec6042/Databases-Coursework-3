@@ -348,18 +348,19 @@ digraph ERDiagram  {
   subgraph Quest {
 
     node [shape=ellipse]
-      quest_type
-      class_required
-      minimum_level
-      quest_level
-      suggested_players
-      time_limit
-      gold_gained
-      xp_gained
-      title
-      explanation
-      acceptance_speach
-      congratulations_speach
+
+      Quest -> quest_type             [ arrowhead="none" ]
+      Quest -> class_required         [ arrowhead="none" ]
+      Quest -> minimum_level          [ arrowhead="none" ]
+      Quest -> quest_level            [ arrowhead="none" ]
+      Quest -> suggested_players      [ arrowhead="none" ]
+      Quest -> time_limit             [ arrowhead="none" ]
+      Quest -> gold_gained            [ arrowhead="none" ]
+      Quest -> xp_gained              [ arrowhead="none" ]
+      Quest -> title                  [ arrowhead="none" ]
+      Quest -> explanation            [ arrowhead="none" ]
+      Quest -> acceptance_speach      [ arrowhead="none" ]
+      Quest -> congratulations_speach [ arrowhead="none" ]
 
 
     node [shape=diamond, label="gives"]
@@ -383,7 +384,5 @@ digraph ERDiagram  {
       Quest_requires_completion_of_Quest -> Quest [arrowhead="none" ]
 
   }
-
-
 }
 
