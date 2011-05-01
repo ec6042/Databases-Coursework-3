@@ -4,3 +4,30 @@ An empty repo for coursework 3!
 
 Will add more stuff as we go!
 
+--------------
+
+SCHEMA notes
+
+Player (username, email_address, password, billing_address, REF_ACCOUNT)
+
+Account (owner, creation_date, paid_until_date, security_level, REF_PLAYER, REF_CHARACTER)
+
+Character (name, race, class, gender, level, total_playing_time, is_online, last_login, last_logout, REF_ACCOUNT, REF_SOCIAL, REF_INVENTORY, REF_ATTRIBUTES, tbc)
+
+Quest (explanation, acceptance_speech, congratulations_speech, quest_type, class_required, minimum_level, quest_level, suggested_players, time_limit, gold_gained, xp_gained, title, REF_POSITION, REF_QUEST, REF_CREATURE, REF_ITEM)
+
+Position (coordinate, direction, mapzone, REF_QUEST, REF_CHARACTER, REF_CREATURE)
+
+Spell (target_type, range, radius, status, cool_down, spell_name, cost, spell_minimum_damage, spell_maximum_damage, REF_CREATURE, REF_CHARACTER, REF_BUFF)
+
+Loot (probability, REF_CREATURE, REF_ITEM)
+
+Attributes (health, mana, energy, armour, strength, agility, stamina, intellect, spirit, xp, REF_BUFF, REF_CREATURE, REF_ITEM, REF_CHARACTER)
+
+Buff (time_left, REF_ATTRIBUTES, REF_SPELL, REF_CREATURE, REF_ITEM, REF_CHARACTER)
+
+Appearance (hair_colour, skin_colour, hair_style, face_style, scale, animation, model_id, REF_CREATURE, REF_CHARACTER)
+
+Item (used_by, required_level, max_stack, minimum_damage, max_damage, delay, bind_type, soul_bound, item_name, type, icon_id, quality, sell_price, inventory_slot, REF_QUEST, REF_ATTRIBUTES, REF_INVENTORY, REF_BAG, 
+
+tbc
