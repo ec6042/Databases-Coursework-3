@@ -8,11 +8,13 @@ Will add more stuff as we go!
 
 SCHEMA notes
 
-Player (username, email_address, password, billing_address, REF_ACCOUNT)
+Player (username, email_address, password, billing_address, (REF_ACCOUNT))
 
-Account (owner, creation_date, paid_until_date, security_level, REF_PLAYER, REF_CHARACTER)
+Account (owner, creation_date, paid_until_date, security_level, owner REF_PLAYER, (REF_CHARACTER))
 
-Character (name, race, class, gender, level, total_playing_time, is_online, last_login, last_logout, REF_ACCOUNT, REF_SOCIAL, REF_INVENTORY, REF_ATTRIBUTES, tbc)
+-- table references tbc
+
+Character (name, race, class, gender, level, total_playing_time, is_online, last_login, last_logout, REF_ACCOUNT, REF_SOCIAL, REF_INVENTORY, REF_ATTRIBUTES)
 
 Quest (explanation, acceptance_speech, congratulations_speech, quest_type, class_required, minimum_level, quest_level, suggested_players, time_limit, gold_gained, xp_gained, title, REF_POSITION, REF_QUEST, REF_CREATURE, REF_ITEM)
 
