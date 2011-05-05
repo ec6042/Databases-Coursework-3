@@ -43,6 +43,10 @@ digraph ERDiagram  {
       creation_date   -> Account [ arrowhead="none"]
       paid_until_date -> Account [ arrowhead="none"]
       security_level  -> Account [ arrowhead="none"]
+      last_login_IP   -> Account [ arrowhead="none"]
+      last_login_time -> Account [ arrowhead="none"]
+      locked          -> Account [ arrowhead="none"]
+      logged_in       -> Account [ arrowhead="none"]
     
     node [shape=diamond, label="owns"]
       Account                -> Account_owns_character [ arrowhead="none" ]
