@@ -6,13 +6,11 @@ Will add more stuff as we go!
 
 --------------
 
-SCHEMA notes
+SCHEMA notes (some table references tbc)
 
 Player (username, email_address, password, billing_address, (REF_ACCOUNT))
 
 Account (owner, creation_date, paid_until_date, security_level, owner REF_PLAYER, (REF_CHARACTER))
-
--- table references tbc
 
 Character (name, race, class, gender, level, total_playing_time, is_online, last_login, last_logout, REF_ACCOUNT, REF_SOCIAL, REF_INVENTORY, REF_ATTRIBUTES)
 
